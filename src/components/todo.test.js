@@ -37,9 +37,18 @@ describe("<Todo /> component Unit test", () => {
   it("Should call onClick handler when todo component ic clicked", () => {
     component.simulate('click')
     expect(mockFn).toHaveBeenCalledTimes(1);
+  });
+});
 
-    
+describe("<Todo /> Styling behaviour", () => {
+    const mockFn = jest.fn();
+  it('should not have linethrough style when Todo is incomplete', ()=> {
+    const component = shallow(<Todo onClick={mockFn} completed={false} text="go to shopping"/>)
+    expect(component.props().style).toEqual({textDecoration : "none"})
   });
 
-
+  it('should have linethrough style when Todo is complete', ()=> {
+    const component = shallow(<Todo onClick={mockFn} completed={true} text="go to shopping"/>)
+    expect(component.props().style).toEqual({textDecoration : "line-through"})
+  });
 });
